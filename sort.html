@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>排序算法</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*从第一个元素开始，该元素可以认为已经被排序；
+	取出下一个元素，在已经排序的元素序列中从后向前扫描；
+	如果该元素（已排序）大于新元素，将该元素移到下一位置；
+	重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；
+	将新元素插入到该位置后；
+	重复步骤2~5。*/
+	/**
+	 * 插入排序算法
+	 * @param  {Array} arr 需要排序的数组
+	 * @return {Array}     从小到大排序好的数组
+	 */
+		function insertSort(arr){
+			var len = arr.length;
+			 for (var i = 1; i < len; i++) {
+              var key = arr[i];
+             var j = i - 1;
+              while (j >= 0 && arr[j] > key) {
+                  arr[j + 1] = arr[j];
+                  j--;
+              }
+             arr[j + 1] = key;
+         }
+        return arr;
+		}
+		/*从第一个元素开始，该元素可以认为已经被排序；
+		取出下一个元素，在已经排序的元素序列中二分查找到第一个比它大的数的位置；
+		将新元素插入到该位置后；
+		重复上述两步*/
+		/**
+		 * 二分法插入排序
+		 * @param  {array} arr 需要排序的数组
+		 * @return {array}     排序后悔的数组
+		 */
+		function binaryInsertSort(arr){
+		 	for (var i = 1; i < arr.length; i++) {
+        var key = arr[i], left = 0, right = i - 1;
+        while (left <= right) {
+          var middle = parseInt((left + right) / 2);
+          if (key < arr[middle]) {
+            right = middle - 1;
+          } else {
+            left = middle + 1;
+          }
+        }
+        for (var j = i - 1; j >= left; j--) {
+          arr[j + 1] = arr[j];
+        }
+        arr[left] = key;
+      }
+    return arr;
+   	}
+		
+
+		/*选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。*/
+
+		function selectSort(arr){
+			for(var i = 0; i < arr.length - 1; i++){
+				var min = arr[i];
+				for(var j = i + 1; j < arr.length - 1; j++){
+					if(min > arr[j]){
+						var temp = min;
+					  min = arr[j];
+						arr[j] = temp;
+					}
+				}
+				arr[i] = min;
+			}
+			return arr;
+		}
+
+		/*冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。*/
+		function bubbleSort(arr) {
+			var len = arr.length;
+			for (var i = 0; i < len - 1; i++) {
+				for (var j = 0; j < i - 1; j++) {
+					if(arr[j] < arr[j-1]){
+						var temp = arr[j];
+						arr[j] = arr[j-1];
+						arr[j-1] = temp;
+					}
+				}
+			}
+			return arr;
+		}
+
+		/*快速排序的基本思想：　
+		（1）在数据集之中，选择一个元素作为"基准"（pivot）。
+　　（2）所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边。
+　　（3）对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。*/
+
+		function quickSort(arr){
+			if (arr.length <= 1){return arr};
+			var pivotIndex = Math.floor(arr.length / 2);
+			var pivot = arr.splice(pivotIndex,1)[0];
+			var left = [];
+			var right = [];
+			for (var i = 0; i < arr.length; i++){
+				if(arr[i] < pivot) {
+					left.push(arr[i]);
+				}else{
+					right.push(arr[i]);
+				}
+			}
+			return quickSort(left).concat([pivot],quickSort(right));
+		}
+
+		var arr=[3,4,5,1,2,7,5];
+		//console.log(selectSort(arr));
+		console.log(quickSort(arr));
+
+	</script>
+</body>
+</html>
