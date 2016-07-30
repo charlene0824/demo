@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp跨域</title>
+</head>
+<body>
+<!-- <iframe src="http://www.charlene.com/AJAX/data.html"  id="proxy" onload="getData()"></iframe>
+	<script type="text/javascript">
+	
+		function getData(){
+			var iframe = document.getElementById("proxy");
+			var win = iframe.contentWindow;
+			win.postMessage('传送的消息','*');
+			
+		}
+	</script> -->
+	<script type="text/javascript">
+	function handleResponse(res){
+		console.log(res);
+	}
+	var script = document.createElement('script');
+	script.src = 'http://www.charlene.com/AJAX/jsonp.php?callback=handleResponse';
+	document.body.insertBefore(script,document.body.firstChild);
+	</script>
+	
+</body>
+</html>
